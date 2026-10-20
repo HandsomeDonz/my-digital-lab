@@ -2,227 +2,115 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="個人專案、網頁技術概念與復古遊戲實驗的第一版網站。">
-  <meta name="theme-color" content="#0b0d12">
-  <title>我的數位實驗室</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="一座可以用角色自由探索的像素個人網站。">
+  <meta name="theme-color" content="#071b20">
+  <title>我的像素世界｜像素 RPG 個人網站</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">跳到主要內容</a>
+  <a class="skip-link" href="#world">跳到像素世界</a>
 
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="回到首頁">
-      <span class="brand-mark" aria-hidden="true">D</span>
-      <span>我的數位實驗室</span>
-    </a>
-    <nav class="nav" aria-label="主要導覽">
-      <a href="#concepts">概念筆記</a>
-      <a href="#projects">實驗區</a>
-      <a href="#publish">發布流程</a>
-    </nav>
-    <button class="theme-button" id="themeButton" type="button" aria-label="切換明暗主題">
-      <span aria-hidden="true">◐</span>
-      <span class="theme-label">切換主題</span>
-    </button>
-  </header>
+  <main id="world" class="world-page">
+    <section class="world-intro" aria-labelledby="worldTitle">
+      <h1 id="worldTitle">我的像素世界</h1>
+    </section>
 
-  <main id="main">
-    <section class="hero" id="top">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="status-dot"></span> PERSONAL WEB LAB · V1</p>
-        <h1>把想法放進<br><span>瀏覽器裡。</span></h1>
-        <p class="hero-intro">這裡會收納我的小工具、技術筆記與復古遊戲實驗。第一版先用最單純的網頁技術，讓每個功能都看得懂、改得動。</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#projects">試玩第一個實驗</a>
-          <a class="button button-secondary" href="#concepts">先看概念筆記</a>
-        </div>
-        <ul class="hero-facts" aria-label="網站特色">
-          <li><strong>0</strong><span>需要安裝</span></li>
-          <li><strong>1</strong><span>個可玩實驗</span></li>
-          <li><strong>100%</strong><span>瀏覽器執行</span></li>
-        </ul>
+    <section class="game-frame" aria-label="可探索的像素工作室">
+      <div class="frame-topbar">
+        <span>ROOM_MAP.EXE</span>
+        <span class="frame-live"><i></i> ONLINE</span>
       </div>
 
-      <div class="browser-card" aria-label="網站運作方式示意圖">
-        <div class="browser-bar">
-          <div class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></div>
-          <span>my-digital-lab / index.html</span>
-          <span class="live-tag">LIVE</span>
+      <div class="game-viewport">
+        <div id="game-root" role="application" aria-label="俯視角像素地圖。使用 WASD 或方向鍵移動，E 鍵互動。"></div>
+
+        <div class="map-legend" aria-hidden="true">
+          <span><i class="legend-player"></i>YOU</span>
+          <span><i class="legend-object"></i>INTERACT</span>
         </div>
-        <div class="browser-stage">
-          <div class="orbit orbit-one"></div>
-          <div class="orbit orbit-two"></div>
-          <div class="stack-card stack-html"><small>頁面</small><strong>HTML</strong></div>
-          <div class="stack-card stack-css"><small>外觀</small><strong>CSS</strong></div>
-          <div class="stack-card stack-js"><small>互動</small><strong>JS</strong></div>
-          <div class="browser-message">
-            <span>瀏覽器</span>
-            <strong>下載檔案後<br>在你的電腦執行</strong>
+
+        <div class="interaction-prompt" id="interactionPrompt" hidden>
+          <kbd>E</kbd>
+          <span id="interactionText">互動</span>
+        </div>
+
+        <div class="mobile-controls" aria-label="觸控操作">
+          <div class="dpad">
+            <button type="button" data-direction="up" aria-label="向上移動">▲</button>
+            <button type="button" data-direction="left" aria-label="向左移動">◀</button>
+            <button type="button" data-direction="down" aria-label="向下移動">▼</button>
+            <button type="button" data-direction="right" aria-label="向右移動">▶</button>
           </div>
+          <button class="interact-button" id="mobileInteract" type="button"><span>A</span>互動</button>
         </div>
-        <div class="browser-footer">
-          <span>GitHub Pages</span>
-          <div class="load-line"><i></i></div>
-          <span>Ready</span>
-        </div>
+      </div>
+
+      <div class="frame-footer">
+        <span>MOVE: WASD / ARROWS</span>
+        <span>INTERACT: E / ENTER</span>
+        <span class="visited-counter">DISCOVERED <b id="visitedCount">0</b>/6</span>
       </div>
     </section>
 
-    <section class="section concepts" id="concepts">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">01 / CONCEPT NOTES</p>
-          <h2>四個容易搞混的角色</h2>
-        </div>
-        <p>先把它們想成一間電玩工作室。角色分清楚後，ArtCraft 和網頁遊戲就不再神祕。</p>
-      </div>
-
-      <div class="concept-grid">
-        <article class="concept-card rust-card">
-          <div class="concept-top"><span class="concept-number">01</span><span class="concept-chip">程式語言</span></div>
-          <h3>Rust</h3>
-          <p class="analogy">像是工程師使用的精密工具箱。</p>
-          <p>拿來撰寫程式本體。它重視速度與記憶體安全，適合編輯器、遊戲引擎和需要大量運算的工具。</p>
-          <details><summary>放進整體流程</summary><p>工程師先用 Rust 寫好程式，再把它編譯成桌面版，或轉成 WebAssembly 給瀏覽器執行。</p></details>
-        </article>
-
-        <article class="concept-card wasm-card">
-          <div class="concept-top"><span class="concept-number">02</span><span class="concept-chip">執行格式</span></div>
-          <h3>WebAssembly</h3>
-          <p class="analogy">像是把機器零件裝進瀏覽器能讀的貨櫃。</p>
-          <p>它不是程式語言，而是瀏覽器可執行的低階格式。Rust、C 和 C++ 都能編譯成 WASM。</p>
-          <details><summary>放進整體流程</summary><p>瀏覽器下載 .wasm 檔後，在本機執行程式。大型編輯器因此不必把每個操作都送到伺服器。</p></details>
-        </article>
-
-        <article class="concept-card webgpu-card">
-          <div class="concept-top"><span class="concept-number">03</span><span class="concept-chip">新式繪圖介面</span></div>
-          <h3>WebGPU</h3>
-          <p class="analogy">像是通往顯示卡的高速專用道路。</p>
-          <p>網站可以把大量繪圖與計算工作交給 GPU。適合影像編輯、3D、特效和複雜視覺工具。</p>
-          <details><summary>放進整體流程</summary><p>WebAssembly 負責程式邏輯，WebGPU 負責把畫面高效率地算出來並顯示。</p></details>
-        </article>
-
-        <article class="concept-card webgl-card">
-          <div class="concept-top"><span class="concept-number">04</span><span class="concept-chip">廣泛支援的繪圖介面</span></div>
-          <h3>WebGL</h3>
-          <p class="analogy">像是較早蓋成、車種支援更廣的道路。</p>
-          <p>也是讓網頁使用 GPU 的技術。年代較久、相容性較高，很多網站會在 WebGPU 不可用時退回 WebGL。</p>
-          <details><summary>它和 WebGPU 的差別</summary><p>兩者都能使用 GPU。WebGPU 較新，控制力和運算能力更完整；WebGL 較舊，但目前仍是可靠的備用方案。</p></details>
-        </article>
-      </div>
-
-      <div class="concept-flow" aria-label="技術關係圖">
-        <span>Rust 原始碼</span><i>→</i><span>編譯成 WASM</span><i>→</i><span>瀏覽器執行</span><i>→</i><span>WebGPU / WebGL 畫畫面</span>
-      </div>
-    </section>
-
-    <section class="section projects" id="projects">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">02 / PLAYGROUND</p>
-          <h2>第一個可玩實驗</h2>
-        </div>
-        <p>這不是 ROM，也沒有模擬器。它是純 JavaScript 小遊戲，用來證明 GitHub Pages 上的靜態網站也能直接執行互動程式。</p>
-      </div>
-
-      <div class="game-layout">
-        <article class="game-panel">
-          <div class="game-titlebar">
-            <div><span class="game-kicker">BROWSER GAME 001</span><h3>像素接星星</h3></div>
-            <span class="game-tech">HTML CANVAS + JS</span>
-          </div>
-          <div class="game-screen-wrap">
-            <canvas id="gameCanvas" width="640" height="360" tabindex="0" aria-label="像素接星星遊戲畫面"></canvas>
-            <div class="game-overlay" id="gameOverlay">
-              <p id="overlayMessage">移動底部平台，接住落下的資料星星。</p>
-              <button class="button button-primary" id="startGame" type="button">開始遊戲</button>
-            </div>
-          </div>
-          <div class="game-controls">
-            <div class="score-group">
-              <span>分數 <strong id="scoreValue">000</strong></span>
-              <span>最高 <strong id="bestValue">000</strong></span>
-              <span>生命 <strong id="livesValue">3</strong></span>
-            </div>
-            <div class="touch-controls" aria-label="觸控方向鍵">
-              <button id="moveLeft" type="button" aria-label="向左移動">←</button>
-              <button id="moveRight" type="button" aria-label="向右移動">→</button>
-            </div>
-          </div>
-          <p class="game-help">鍵盤使用 A、D 或左右方向鍵。手機可使用畫面下方按鈕。</p>
-        </article>
-
-        <aside class="project-list" aria-label="專案規劃">
-          <article class="project-card active">
-            <span class="project-index">01</span>
-            <div><h3>瀏覽器小遊戲</h3><p>目前版本。程式完全在訪客的瀏覽器執行。</p></div>
-            <span class="project-status">可測試</span>
-          </article>
-          <article class="project-card">
-            <span class="project-index">02</span>
-            <div><h3>EmulatorJS 播放器</h3><p>下一版加入合法 ROM、遊戲清單、存檔與全螢幕。</p></div>
-            <span class="project-status muted">下一步</span>
-          </article>
-          <article class="project-card">
-            <span class="project-index">03</span>
-            <div><h3>我的網頁工具</h3><p>日後把連結解析器或其他 Python 工具改成適合網頁的版本。</p></div>
-            <span class="project-status muted">規劃中</span>
-          </article>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section storage" id="storage">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">03 / WHERE DATA LIVES</p>
-          <h2>GitHub 可以當後端嗎？</h2>
-        </div>
-        <p>可以存放公開檔案，也能提供網站，但它不是完整後端。用店面的比喻最容易記。</p>
-      </div>
-
-      <div class="storage-grid">
-        <article><span class="storage-icon">倉</span><h3>GitHub Repository</h3><p class="analogy">有版本紀錄的倉庫</p><p>保存程式碼、圖片、公開設定與網站檔案。適合保管作品，不適合保存密碼或使用者私人資料。</p></article>
-        <article><span class="storage-icon">店</span><h3>GitHub Pages</h3><p class="analogy">把倉庫商品擺到公開店面</p><p>把 HTML、CSS、JavaScript、WASM 與合法遊戲檔送給訪客瀏覽器。不能在伺服器上執行 Python 或 PHP。</p></article>
-        <article><span class="storage-icon">抽</span><h3>localStorage</h3><p class="analogy">放在訪客電腦裡的小抽屜</p><p>可保存主題、最高分和簡單設定。清除瀏覽器資料就可能消失，也不會自動同步到其他裝置。</p></article>
-        <article><span class="storage-icon">櫃</span><h3>真正的後端</h3><p class="analogy">有管理員和門鎖的資料櫃</p><p>登入、資料庫、雲端存檔、留言與秘密 API 金鑰需要 Supabase、Firebase、Cloudflare 或自己的伺服器。</p></article>
-      </div>
-      <div class="warning-note"><strong>安全原則</strong><span>任何放進 GitHub Pages 的內容都應視為公開。密碼、私人資料與 API 金鑰不能寫進前端程式。</span></div>
-    </section>
-
-    <section class="section publish" id="publish">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">04 / PUBLISH PATH</p>
-          <h2>未來你只需要看懂這條路</h2>
-        </div>
-        <p>程式細節與部署設定可以交給我處理。你主要負責帳號授權、決定公開內容和確認結果。</p>
-      </div>
-
-      <ol class="publish-flow">
-        <li><span>1</span><div><strong>在電腦完成網站</strong><small>先預覽與測試</small></div></li>
-        <li><span>2</span><div><strong>上傳到 GitHub</strong><small>保存程式與修改紀錄</small></div></li>
-        <li><span>3</span><div><strong>Actions 自動發布</strong><small>每次更新自動處理</small></div></li>
-        <li><span>4</span><div><strong>Pages 公開網址</strong><small>任何裝置都能開啟</small></div></li>
-      </ol>
-
-      <div class="next-card">
-        <div>
-          <p class="eyebrow">NEXT MILESTONE</p>
-          <h2>下一版：復古遊戲館</h2>
-          <p>加入 EmulatorJS、遊戲資料清單、封面、分類、合法測試 ROM、存檔和全螢幕模式。</p>
-        </div>
-        <a class="button button-primary" href="#projects">回去試玩</a>
-      </div>
-    </section>
   </main>
 
-  <footer>
-    <span>我的數位實驗室 · 第一版</span>
-    <span>HTML / CSS / JavaScript</span>
-  </footer>
+  <dialog class="content-dialog" id="contentDialog">
+    <div class="dialog-window">
+      <header class="dialog-titlebar">
+        <div>
+          <span class="dialog-icon" id="dialogIcon" aria-hidden="true">■</span>
+          <span id="dialogTitle">內容</span>
+        </div>
+        <button class="window-close" id="closeDialog" type="button" aria-label="關閉視窗">×</button>
+      </header>
+      <div class="dialog-body" id="dialogBody"></div>
+      <footer class="dialog-footer">
+        <span id="dialogPath">C:\ROOM\</span>
+        <span>ESC CLOSE</span>
+      </footer>
+    </div>
+  </dialog>
 
+  <dialog class="menu-dialog" id="menuDialog">
+    <div class="menu-panel">
+      <header>
+        <div><span class="menu-pixel">◆</span><h2>快速選單</h2></div>
+        <button id="closeMenu" type="button" aria-label="關閉快速選單">×</button>
+      </header>
+      <p>直接選擇目的地，或回到地圖慢慢探索。</p>
+      <div class="menu-grid">
+        <button type="button" data-open-object="computer"><span>01</span><b>桌上電腦</b><small>技術與設計分析</small></button>
+        <button type="button" data-open-object="whiteboard"><span>02</span><b>設計白板</b><small>理念與製作流程</small></button>
+        <button type="button" data-open-object="bookshelf"><span>03</span><b>書架</b><small>關於這個世界</small></button>
+        <button type="button" data-open-object="projects"><span>04</span><b>工作桌</b><small>專案與下一步</small></button>
+        <button type="button" data-open-object="arcade"><span>05</span><b>復古街機</b><small>像素接星星</small></button>
+        <button type="button" data-open-object="phone"><span>06</span><b>聯絡終端</b><small>網站與 GitHub</small></button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="help-dialog" id="helpDialog">
+    <div class="help-panel">
+      <button id="closeHelp" type="button" aria-label="關閉操作說明">×</button>
+      <p class="eyebrow">HOW TO PLAY</p>
+      <h2>探索操作</h2>
+      <dl>
+        <div><dt>移動</dt><dd>WASD 或方向鍵</dd></div>
+        <div><dt>互動</dt><dd>E、Enter 或空白鍵</dd></div>
+        <div><dt>滑鼠</dt><dd>直接點擊地圖物件</dd></div>
+        <div><dt>手機</dt><dd>使用畫面方向鍵與 A 鍵</dd></div>
+        <div><dt>關閉</dt><dd>Esc 或視窗右上角 ×</dd></div>
+      </dl>
+      <button class="primary-action" id="startExploring" type="button">開始探索</button>
+    </div>
+  </dialog>
+
+  <noscript>
+    <div class="noscript-message">這個互動地圖需要 JavaScript。請啟用 JavaScript 後重新整理。</div>
+  </noscript>
+
+  <script src="./phaser.min.js"></script>
   <script src="./script.js"></script>
 </body>
 </html>
